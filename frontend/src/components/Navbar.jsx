@@ -11,7 +11,7 @@ const Navbar = () => {
         <Link to="/" className="text-2xl font-bold text-orange-500 flex gap-4">
           <img className="w-10" src="/AIResume-logo.webp" alt="logo.img" />
           <span>
-            AI <span className="text-gray-700">Resume</span>
+            AI<span className="text-gray-700">Resume</span>
           </span>
         </Link>
 

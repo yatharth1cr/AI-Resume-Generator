@@ -37,7 +37,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      <h1 className="text-3xl font-bold mb-4">AI Resume Generator</h1>
+      <h1 className="text-3xl font-bold mb-4">
+        <span className="text-orange-600">AI</span>Resume Generator
+      </h1>
 
       <Formik
         initialValues={{ jobTitle: "", experience: "", skills: "" }}
