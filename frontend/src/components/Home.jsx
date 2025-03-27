@@ -16,23 +16,38 @@ const Home = () => {
     skills: Yup.string().required("Skills are required"),
   });
 
-  const handleGenerate = async (values, { setSubmitting }) => {
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/openai/generate-resume",
-        {
-          jobTitle: values.jobTitle,
-          experience: values.experience,
-          skills: values.skills.split(",").map((skill) => skill.trim()), // Convert skills string to array
-        }
-      );
-      setGeneratedResume(response.data.resume);
-    } catch (error) {
-      console.error("Error generating resume:", error);
-      setGeneratedResume("Failed to generate resume. Try again later.");
-    } finally {
-      setSubmitting(false);
-    }
+  const handleGenerate = (values, { setSubmitting }) => {
+    // Split the skills string by commas, trim whitespace, and filter out empty values
+    const formattedSkills = values.skills
+      ? values.skills
+          .split(",")
+          .map((skill) => skill.trim())
+          .filter(Boolean)
+      : [];
+
+    console.log("Sending Data:", {
+      jobTitle: values.jobTitle,
+      experience: values.experience,
+      skills: formattedSkills,
+    });
+
+    axios
+      .post("http://localhost:5000/api/openai/generate-resume", {
+        jobTitle: values.jobTitle,
+        experience: values.experience,
+        skills: formattedSkills,
+      })
+      .then((response) => {
+        setGeneratedResume(response.data.resume);
+        console.log("Generated Resume:", response.data.resume);
+      })
+      .catch((error) => {
+        console.error("Error generating resume:", error);
+        setGeneratedResume("Failed to generate resume. Try again later.");
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
   };
 
   return (
@@ -102,7 +117,7 @@ const Home = () => {
       </Formik>
 
       {generatedResume && (
-        <div className="bg-white p-4 mt-4 w-96 shadow-md">
+        <div className="bg-white p-4 mt-4 w-96 shadow-md max-h-60 overflow-y-auto">
           <h2 className="text-lg font-bold">Generated Resume</h2>
           <p>{generatedResume}</p>
         </div>
