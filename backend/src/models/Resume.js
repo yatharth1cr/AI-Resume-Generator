@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 
-const resumeSchema = new mongoose.Schema({
-  jobTitle: String,
-  experience: Number,
-  skills: [String],
-  resumeText: String,
-  createdAt: { type: Date, default: Date.now },
-});
+const ResumeSchema = new mongoose.Schema(
+  {
+    jobTitle: { type: String, required: true },
+    experience: { type: Number, required: true },
+    skills: { type: [String], required: true },
+    content: { type: String, required: true }, // Store generated resume
+  },
+  { timestamps: true }
+);
 
-const Resume = mongoose.model("Resume", resumeSchema);
-module.exports = Resume;
+module.exports = mongoose.model("Resume", ResumeSchema);
