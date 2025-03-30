@@ -1,7 +1,6 @@
 # AI-Resume-Generator
 
 ## Overview
-
 AI-Resume-Generator is a powerful tool designed to help users create professional and tailored resumes effortlessly. By leveraging artificial intelligence, this application ensures that your resume stands out and aligns with industry standards.
 
 ## Features
