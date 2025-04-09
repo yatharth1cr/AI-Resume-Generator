@@ -10,7 +10,7 @@ const GeneratedResume = () => {
 
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
-      <header className="mb-4 md:mb-6 lg:mb-8">
+      <header className="mt-14 text-center">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900">
           Your Resume
         </h1>
@@ -24,9 +24,6 @@ const GeneratedResume = () => {
       >
         {content ? (
           <div className="text-gray-700 space-y-4 text-lg leading-relaxed">
-            <h2 className="text-xl font-semibold border-b pb-2">
-              Professional Summary
-            </h2>
             <Typewriter
               words={[content]}
               loop={1}

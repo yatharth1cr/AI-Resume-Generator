@@ -33,15 +33,15 @@ const Feature = () => {
         </p>
 
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-8">
-          {features.map((feature, index) => (
+          {features.map(({ title, description, icon }, index) => (
             <div
               key={index}
               className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center"
             >
-              <span className="text-4xl">{feature.icon}</span>
-              <h3 className="text-lg font-semibold mt-3">{feature.title}</h3>
+              <span className="text-4xl">{icon}</span>
+              <h3 className="text-lg font-semibold mt-3">{title}</h3>
               <p className="text-gray-600 mt-2 text-sm text-center">
-                {feature.description}
+                {description}
               </p>
             </div>
           ))}
