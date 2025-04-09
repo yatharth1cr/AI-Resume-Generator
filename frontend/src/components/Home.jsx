@@ -2,27 +2,28 @@ import { useState } from "react";
 import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [generatedResume, setGeneratedResume] = useState("");
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  const validationSchema = Yup.object({
-    jobTitle: Yup.string().required("Job title is required"),
-    experience: Yup.number()
-      .typeError("Experience must be a number")
-      .min(0, "Experience cannot be negative")
-      .required("Experience is required"),
-    skills: Yup.string().required("Skills are required"),
-  });
+  const jobTitleValidation = Yup.string().required("Job title is required");
+  const experienceValidation = Yup.number()
+    .typeError("Experience must be a number")
+    .min(0, "Experience cannot be negative")
+    .required("Experience is required");
+  const skillsValidation = Yup.string().required("Skills are required");
 
   const handleGenerate = async (values, { setSubmitting }) => {
+    setError("");
     const formattedSkills = values.skills
       .split(",")
       .map((skill) => skill.trim())
       .filter(Boolean);
 
     try {
-      const { data } = await axios.post(
+      const response = await axios.post(
         "http://localhost:5000/api/generate-resume",
         {
           jobTitle: values.jobTitle,
@@ -30,9 +31,12 @@ const Home = () => {
           skills: formattedSkills,
         }
       );
-      setGeneratedResume(data.resume);
+
+      navigate("/generated-resume", {
+        state: { resume: response.data.resume },
+      });
     } catch (error) {
-      setGeneratedResume(
+      setError(
         error.response?.data?.error ||
           "Failed to generate resume. Try again later."
       );
@@ -44,11 +48,16 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
       <h1 className="text-3xl font-bold mb-4 text-center">
-        <span className="text-orange-600">AI</span> Resume Generator
+        <span className="text-blue-600">AI</span> Resume Generator
       </h1>
+
       <Formik
         initialValues={{ jobTitle: "", experience: "", skills: "" }}
-        validationSchema={validationSchema}
+        validationSchema={Yup.object({
+          jobTitle: jobTitleValidation,
+          experience: experienceValidation,
+          skills: skillsValidation,
+        })}
         onSubmit={handleGenerate}
       >
         {({ isSubmitting }) => (
@@ -66,6 +75,7 @@ const Home = () => {
                 className="text-red-600 text-sm"
               />
             </div>
+
             <div className="mb-4">
               <Field
                 type="number"
@@ -79,6 +89,7 @@ const Home = () => {
                 className="text-red-600 text-sm"
               />
             </div>
+
             <div className="mb-4">
               <Field
                 type="text"
@@ -92,9 +103,10 @@ const Home = () => {
                 className="text-red-600 text-sm"
               />
             </div>
+
             <button
               type="submit"
-              className="bg-orange-600 w-full text-white px-4 py-2 rounded-md hover:bg-orange-700 disabled:opacity-50"
+              className="bg-blue-600 w-full text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Generating..." : "Generate Resume"}
@@ -102,10 +114,10 @@ const Home = () => {
           </Form>
         )}
       </Formik>
-      {generatedResume && (
-        <div className="bg-white p-4 mt-4 w-full max-w-md shadow-md rounded-md max-h-60 overflow-y-auto">
-          <h2 className="text-lg font-bold">Generated Resume</h2>
-          <p>{generatedResume}</p>
+
+      {error && (
+        <div className="text-red-600 mt-4 bg-white p-2 rounded-md shadow-md">
+          {error}
         </div>
       )}
     </div>
