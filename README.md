@@ -1,5 +1,7 @@
 # AI-Resume-Generator
 
+<a href="https://ai-resume-generator-1j18.vercel.app/"><strong>➥ Live Demo</strong></a>
+
 ## Overview
 AI-Resume-Generator is a powerful tool designed to help users create professional and tailored resumes effortlessly. By leveraging artificial intelligence, this application ensures that your resume stands out and aligns with industry standards.
 
