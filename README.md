@@ -17,10 +17,10 @@ AI-Resume-Generator is a powerful tool designed to help users create professiona
 - **Frontend**: React.js for a dynamic and responsive user interface.
 - **Backend**: Node.js and Express.js for robust server-side functionality.
 - **Database**: MongoDB for efficient data storage and retrieval.
-- **AI Integration**: OpenAI API for generating content and suggestions.
+- **AI Integration**: cohereAI API for generating content and suggestions.
 - **Styling**: Tailwind CSS for modern and clean design.
 - **Version Control**: Git and GitHub for collaborative development.
-- **Deployment**: Hosted on platforms like Vercel for easy accessibility.
+- **Deployment**: Hosted on Vercel for easy accessibility.
 
 ## How to Use
 
