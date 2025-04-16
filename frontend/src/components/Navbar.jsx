@@ -3,63 +3,95 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
+  const toggleDarkMode = () => setDarkMode((prev) => !prev);
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Features", path: "/features" },
+    { name: "About Us", path: "/about-us" },
+    { name: "Contact", path: "/contact" },
+  ];
 
   return (
-    <nav className="bg-white shadow-md fixed w-full top-0 left-0 z-50">
+    <nav
+      className={`fixed top-0 left-0 w-full z-50 shadow-md transition-colors duration-300 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-800"
+      }`}
+    >
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/" className="text-2xl font-bold text-blue-500 flex gap-4">
-          <img
-            className="w-10"
-            src="/AIResume-logo.webp"
-            alt="AI Resume Logo"
-          />
-          <span>
-            AI<span className="text-gray-700">Resume</span>
-          </span>
-        </Link>
+        {/* Logo & Theme Toggle */}
 
-        {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-6 text-gray-700 font-medium">
-          <Link to="/" className="hover:text-blue-600 transition">
-            Home
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={toggleDarkMode}
+            className="text-2xl focus:outline-none"
+            title="Toggle Theme"
+          >
+            {darkMode ? "🌙" : "☀️"}
+          </button>
+          <Link
+            to="/"
+            className={`text-2xl font-bold flex items-center gap-4 ${
+              darkMode ? "text-blue-300" : "text-green-500"
+            }`}
+          >
+            <span>
+              AI
+              <span className={darkMode ? "text-white" : "text-gray-700"}>
+                Resume
+              </span>
+            </span>
           </Link>
+        </div>
 
-          {["Features", "About-us", "Contact"].map((item) => (
-            <li key={item}>
+        {/* Desktop Navigation */}
+        <ul className="hidden md:flex space-x-6 font-medium">
+          {navLinks.map(({ name, path }) => (
+            <li key={name}>
               <Link
-                to={`/${item.toLowerCase()}`}
-                className="hover:text-blue-600 transition"
+                to={path}
+                className={`transition hover:text-green-500 ${
+                  darkMode ? "text-white" : "text-gray-700"
+                }`}
               >
-                {item}
+                {name}
               </Link>
             </li>
           ))}
         </ul>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden text-2xl focus:outline-none cursor-pointer"
           onClick={toggleMenu}
+          className={`md:hidden text-2xl focus:outline-none ${
+            darkMode ? "text-white" : "text-gray-800"
+          }`}
         >
           {menuOpen ? "✖" : "☰"}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation */}
       {menuOpen && (
-        <ul className="md:hidden bg-white border-t border-gray-200 shadow-md">
-          {["Home", "Feature", "About", "Contact"].map((item) => (
-            <li key={item}>
+        <ul
+          className={`md:hidden border-t shadow-md ${
+            darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+          }`}
+        >
+          {navLinks.map(({ name, path }) => (
+            <li key={name}>
               <Link
-                to={`/${item.toLowerCase()}`}
-                className="block px-4 py-2 hover:bg-gray-100"
+                to={path}
                 onClick={closeMenu}
+                className={`block px-4 py-2 transition hover:${
+                  darkMode ? "bg-gray-700" : "bg-gray-100"
+                }`}
               >
-                {item}
+                {name}
               </Link>
             </li>
           ))}
