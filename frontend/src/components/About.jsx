@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+// import illustration from "../assets/";
 
 const About = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="bg-white text-gray-900 py-24 px-6 md:px-12 lg:px-24">
+    <section className="bg-gray-100 text-gray-900 py-28 px-6 md:px-12 lg:px-24">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-12">
         {/* Text Content */}
         <div className="flex-1 text-center lg:text-left">
@@ -42,7 +43,7 @@ const About = () => {
         {/* Image/Illustration */}
         <div className="flex-1">
           <img
-            src="src\assets\Cyborg-bro.svg"
+            src="src/assets/Cyborg-bro.svg"
             alt="AI Resume Illustration"
             className="w-full max-w-md mx-auto"
           />
