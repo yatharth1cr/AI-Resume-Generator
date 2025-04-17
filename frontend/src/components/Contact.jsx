@@ -58,7 +58,7 @@ const Contact = ({ darkMode }) => {
 
           <div className="flex justify-center">
             <img
-              src="src/assets/contact.svg" // use imported image if needed
+              src="../../assets/contact.svg" // use imported image if needed
               alt="Contact Us"
               className="w-full max-w-md"
             />
