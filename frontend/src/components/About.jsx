@@ -43,7 +43,7 @@ const About = () => {
         {/* Image/Illustration */}
         <div className="flex-1">
           <img
-            src="src/assets/Cyborg-bro.svg"
+            src="../../assets/AboutUs.svg"
             alt="AI Resume Illustration"
             className="w-full max-w-md mx-auto"
           />
