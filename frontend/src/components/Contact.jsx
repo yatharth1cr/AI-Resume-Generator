@@ -1,23 +1,29 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-const Contact = ({ darkMode }) => {
-  const isDark = darkMode;
+const Contact = () => {
+  const darkMode = useSelector((state) => state.darkMode.enabled);
+
   const contactCardClasses = `p-6 rounded-xl shadow-md flex flex-col items-center ${
-    isDark ? "bg-gray-800" : "bg-white"
+    darkMode ? "bg-gray-800" : "bg-white"
+  }`;
+
+  const inputClasses = `w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-400 ${
+    darkMode ? "bg-gray-700 border-gray-600 text-white" : "border-gray-300"
   }`;
 
   return (
     <section
       id="contact"
       className={`py-20 ${
-        isDark ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800"
+        darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="text-center mb-12">
           <h2
             className={`text-4xl font-bold ${
-              isDark ? "text-green-400" : "text-green-600"
+              darkMode ? "text-green-400" : "text-green-600"
             }`}
           >
             Contact
@@ -27,50 +33,59 @@ const Contact = ({ darkMode }) => {
           </p>
         </div>
 
-        {/* Contact Info + Illustration */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
           <div className="grid grid-cols-1 md:grid-rows-3 gap-6">
-            <div className={contactCardClasses}>
-              <h3 className="text-lg font-semibold mt-3">Phone</h3>
-              <p className="mt-2 text-sm text-center">7065365105</p>
-            </div>
-
-            <div className={contactCardClasses}>
-              <h3 className="text-lg font-semibold mt-3">LinkedIn</h3>
-              <a
-                href="https://www.linkedin.com/in/yatharth-raj-giri-b51579287/"
-                className="text-blue-400 mt-2 text-sm text-center"
-              >
-                Yatharth Giri
-              </a>
-            </div>
-
-            <div className={contactCardClasses}>
-              <h3 className="text-lg font-semibold mt-3">Email</h3>
-              <a
-                href="mailto:yatharthgiri187@gmail.com"
-                className="text-blue-400 mt-2 text-sm text-center"
-              >
-                yatharthgiri187@gmail.com
-              </a>
-            </div>
+            {[
+              {
+                title: "Phone",
+                content: "7065365105",
+              },
+              {
+                title: "LinkedIn",
+                content: (
+                  <a
+                    href="https://www.linkedin.com/in/yatharth-raj-giri-b51579287/"
+                    className="text-blue-400 mt-2 text-sm text-center"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Yatharth Giri
+                  </a>
+                ),
+              },
+              {
+                title: "Email",
+                content: (
+                  <a
+                    href="mailto:yatharthgiri187@gmail.com"
+                    className="text-blue-400 mt-2 text-sm text-center"
+                  >
+                    yatharthgiri187@gmail.com
+                  </a>
+                ),
+              },
+            ].map(({ title, content }) => (
+              <div key={title} className={contactCardClasses}>
+                <h3 className="text-lg font-semibold mt-3">{title}</h3>
+                <p className="mt-2 text-sm text-center">{content}</p>
+              </div>
+            ))}
           </div>
 
           <div className="flex justify-center">
             <img
-              src="../../assets/contact.svg" // use imported image if needed
+              src="../../assets/contact.svg"
               alt="Contact Us"
               className="w-full max-w-md"
             />
           </div>
         </div>
 
-        {/* Form and Map Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <div
             className={`p-8 rounded-2xl shadow-lg border ${
-              isDark
+              darkMode
                 ? "bg-gray-800 border-gray-700"
                 : "bg-white border-gray-200"
             }`}
@@ -83,10 +98,11 @@ const Contact = ({ darkMode }) => {
               onSubmit={(e) => {
                 e.preventDefault();
                 const formData = new FormData(e.currentTarget);
-                const name = formData.get("name");
-                const email = formData.get("email");
-                const message = formData.get("message");
-                console.log({ name, email, message });
+                console.log({
+                  name: formData.get("name"),
+                  email: formData.get("email"),
+                  message: formData.get("message"),
+                });
               }}
             >
               {["Name", "Email", "Message"].map((label) => (
@@ -94,34 +110,25 @@ const Contact = ({ darkMode }) => {
                   <label className="block text-sm font-medium mb-2">
                     {label}
                   </label>
-                  {label !== "Message" ? (
-                    <input
-                      type={label.toLowerCase()}
-                      name={label.toLowerCase()}
-                      placeholder={`Your ${label}`}
-                      className={`w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-400 ${
-                        isDark
-                          ? "bg-gray-700 border-gray-600 text-white"
-                          : "border-gray-300"
-                      }`}
-                      required
-                    />
-                  ) : (
+                  {label === "Message" ? (
                     <textarea
                       name="message"
                       rows="5"
                       placeholder="Your Message"
-                      className={`w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-green-400 ${
-                        isDark
-                          ? "bg-gray-700 border-gray-600 text-white"
-                          : "border-gray-300"
-                      }`}
+                      className={inputClasses}
                       required
                     ></textarea>
+                  ) : (
+                    <input
+                      type={label.toLowerCase()}
+                      name={label.toLowerCase()}
+                      placeholder={`Your ${label}`}
+                      className={inputClasses}
+                      required
+                    />
                   )}
                 </div>
               ))}
-
               <button
                 type="submit"
                 className="w-full bg-green-600 text-white py-3 px-6 rounded-xl hover:bg-green-700 transition-all duration-300"
@@ -131,10 +138,10 @@ const Contact = ({ darkMode }) => {
             </form>
           </div>
 
-          {/* Map Section */}
+          {/* Map */}
           <div
             className={`p-8 rounded-2xl shadow-lg border ${
-              isDark
+              darkMode
                 ? "bg-gray-800 border-gray-700"
                 : "bg-white border-gray-200"
             }`}
@@ -143,7 +150,7 @@ const Contact = ({ darkMode }) => {
               Find Me Here
             </h3>
             <p className="mb-4">
-              Let's meet or collaborate. You can find me at this location!
+              Let&apos;s meet or collaborate. You can find me at this location!
             </p>
             <iframe
               className="w-full h-96 rounded-xl shadow-md border"
