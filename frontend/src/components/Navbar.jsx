@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleDarkMode } from "../redux/slices/darkModeSlice";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const dispatch = useDispatch();
+  const darkMode = useSelector((state) => state.darkMode.enabled);
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
-  const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -24,15 +26,15 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo & Theme Toggle */}
-
         <div className="flex items-center space-x-4">
           <button
-            onClick={toggleDarkMode}
+            onClick={() => dispatch(toggleDarkMode())}
             className="text-2xl focus:outline-none"
             title="Toggle Theme"
           >
             {darkMode ? "🌙" : "☀️"}
           </button>
+
           <Link
             to="/"
             className={`text-2xl font-bold flex items-center gap-4 ${
@@ -87,8 +89,8 @@ const Navbar = () => {
               <Link
                 to={path}
                 onClick={closeMenu}
-                className={`block px-4 py-2 transition hover:${
-                  darkMode ? "bg-gray-700" : "bg-gray-100"
+                className={`block px-4 py-2 transition ${
+                  darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
                 }`}
               >
                 {name}

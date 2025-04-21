@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+
 const features = [
   {
     title: "AI-Powered Resume",
@@ -28,29 +30,39 @@ const features = [
 ];
 
 const Feature = () => {
+  const darkMode = useSelector((state) => state.darkMode.enabled);
+
   return (
-    <section id="features" className="py-20 bg-gray-100">
-      <div className="container mx-auto text-center">
-        <h2 className="text-3xl font-bold text-green-500">Features</h2>
-        <p className="text-gray-600 mt-2">
+    <section
+      id="features"
+      className={`py-28 transition-colors duration-300 ${
+        darkMode ? "bg-gray-900" : "bg-gray-100"
+      }`}
+    >
+      <div className="container mx-auto text-center px-4">
+        <h2 className="text-3xl font-bold text-green-500 dark:text-green-400">
+          Features
+        </h2>
+        <p className="mt-2 text-gray-600 dark:text-gray-300">
           Everything you need to create the perfect resume
         </p>
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-8">
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 px-2 md:px-6">
           {features.map(({ title, description, icon, comingSoon }, index) => (
             <div
               key={index}
-              className={`bg-white p-6 rounded-lg shadow-md flex flex-col items-center relative ${
-                comingSoon ? "opacity-60" : ""
-              }`}
+              className={`relative p-6 rounded-xl shadow-md transition-all duration-300 flex flex-col items-center ${
+                darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
+              } ${comingSoon ? "opacity-60" : ""}`}
             >
               <span className="text-4xl">{icon}</span>
-              <h3 className="text-lg font-semibold mt-3">{title}</h3>
-              <p className="text-gray-600 mt-2 text-sm text-center">
+              <h3 className="text-lg font-semibold mt-4">{title}</h3>
+              <p className="mt-2 text-sm text-center text-gray-600 dark:text-gray-300">
                 {description}
               </p>
+
               {comingSoon && (
-                <span className="absolute top-2 right-2 bg-yellow-300 text-yellow-800 text-xs px-2 py-1 rounded-full">
+                <span className="absolute top-2 right-2 bg-yellow-300 text-yellow-900 text-xs font-semibold px-2 py-0.5 rounded-full">
                   Coming Soon
                 </span>
               )}
