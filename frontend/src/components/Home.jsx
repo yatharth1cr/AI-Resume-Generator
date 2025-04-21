@@ -63,7 +63,7 @@ const Home = () => {
         {/* Image */}
         <div className="hidden md:block">
           <img
-            src="../../assets/home.svg"
+            src="/assets/home.svg"
             alt="Resume Illustration"
             className="w-full h-auto"
           />
