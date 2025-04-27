@@ -3,10 +3,12 @@ import axios from "axios";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const darkMode = useSelector((state) => state.darkMode.enabled);
 
   // Validation Schema
   const validationSchema = Yup.object({
@@ -17,22 +19,20 @@ const Home = () => {
       .required("Experience is required"),
     skills: Yup.string()
       .required("Skills are required")
-      .min(2, "Skills must be at least 2 characters long")
-      .max(200, "Skills must be at most 200 characters long"),
+      .min(2, "Skills must be at least 2 characters")
+      .max(200, "Skills must be at most 200 characters"),
     education: Yup.string()
       .required("Education is required")
-      .min(2, "Education must be at least 2 characters long")
-      .max(100, "Education must be at most 100 characters long"),
+      .min(2, "Education must be at least 2 characters")
+      .max(100, "Education must be at most 100 characters"),
   });
 
-  // Form Submission Handler
   const handleGenerate = (values, { setSubmitting }) => {
     setError("");
     const formattedSkills = values.skills
       .split(",")
       .map((skill) => skill.trim());
 
-    // Send data to the backend
     axios
       .post("http://localhost:5000/api/generate-resume", {
         jobTitle: values.jobTitle,
@@ -41,7 +41,6 @@ const Home = () => {
         education: values.education,
       })
       .then((response) => {
-        // Navigate to generated-resume page with response data
         navigate("/generated-resume", {
           state: { resume: response.data.resume },
         });
@@ -58,8 +57,16 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-6xl bg- rounded-xl shadg p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div
+      className={`min-h-screen flex items-center justify-center px-4 py-10 transition-colors duration-300 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
+      }`}
+    >
+      <div
+        className={`w-full max-w-6xl ${
+          darkMode ? "bg-gray-800" : "bg-white"
+        } rounded-xl shadow-xl p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-8 items-center`}
+      >
         {/* Image */}
         <div className="hidden md:block">
           <img
@@ -71,8 +78,11 @@ const Home = () => {
 
         {/* Form */}
         <div>
-          <h2 className="text-3xl font-bold text-center text-green-600 mb-6">
-            AI<span className="text-gray-800">Resume Generator</span>
+          <h2 className="text-3xl font-bold text-center mb-6">
+            <span className="text-green-600">AI</span>{" "}
+            <span className={darkMode ? "text-white" : "text-gray-800"}>
+              Resume Generator
+            </span>
           </h2>
 
           <Formik
@@ -87,10 +97,11 @@ const Home = () => {
           >
             {({ isSubmitting }) => (
               <Form className="space-y-4">
+                {/* Job Title */}
                 <div>
                   <label
-                    className="block text-sm font-medium mb-1"
                     htmlFor="jobTitle"
+                    className="block text-sm font-medium mb-1"
                   >
                     Job Title
                   </label>
@@ -98,7 +109,9 @@ const Home = () => {
                     type="text"
                     name="jobTitle"
                     id="jobTitle"
-                    className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none"
+                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none bg-white ${
+                      darkMode ? "bg-gray-700" : ""
+                    }`}
                     placeholder="e.g. Frontend Developer"
                   />
                   <ErrorMessage
@@ -108,10 +121,11 @@ const Home = () => {
                   />
                 </div>
 
+                {/* Experience */}
                 <div>
                   <label
-                    className="block text-sm font-medium mb-1"
                     htmlFor="experience"
+                    className="block text-sm font-medium mb-1"
                   >
                     Years of Experience
                   </label>
@@ -119,7 +133,9 @@ const Home = () => {
                     type="number"
                     name="experience"
                     id="experience"
-                    className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none"
+                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none bg-white ${
+                      darkMode ? "bg-gray-700" : ""
+                    }`}
                     placeholder="e.g. 2"
                   />
                   <ErrorMessage
@@ -129,19 +145,24 @@ const Home = () => {
                   />
                 </div>
 
+                {/* Skills */}
                 <div>
                   <label
-                    className="block text-sm font-medium mb-1"
                     htmlFor="skills"
+                    className="block text-sm font-medium mb-1"
                   >
                     Skills{" "}
-                    <span className="text-gray-500">(comma-separated)</span>
+                    <span className="text-gray-500 dark:text-gray-400">
+                      (comma-separated)
+                    </span>
                   </label>
                   <Field
                     type="text"
                     name="skills"
                     id="skills"
-                    className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none"
+                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none bg-white ${
+                      darkMode ? "bg-gray-700" : ""
+                    }`}
                     placeholder="e.g. React, JavaScript, Tailwind"
                   />
                   <ErrorMessage
@@ -151,10 +172,11 @@ const Home = () => {
                   />
                 </div>
 
+                {/* Education */}
                 <div>
                   <label
-                    className="block text-sm font-medium mb-1"
                     htmlFor="education"
+                    className="block text-sm font-medium mb-1"
                   >
                     Education
                   </label>
@@ -162,7 +184,9 @@ const Home = () => {
                     type="text"
                     name="education"
                     id="education"
-                    className="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none"
+                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none bg-white ${
+                      darkMode ? "bg-gray-700" : "bg-black-50"
+                    }`}
                     placeholder="e.g. B.Tech in Computer Science"
                   />
                   <ErrorMessage
@@ -172,6 +196,7 @@ const Home = () => {
                   />
                 </div>
 
+                {/* Submit */}
                 <button
                   type="submit"
                   className="w-full bg-green-600 text-white font-medium py-2 px-4 rounded-md hover:bg-green-700 transition-all duration-200 disabled:opacity-50"
@@ -183,8 +208,9 @@ const Home = () => {
             )}
           </Formik>
 
+          {/* Error */}
           {error && (
-            <div className="mt-4 text-red-600 bg-red-50 border border-red-200 rounded-md p-3 text-sm">
+            <div className="mt-4 text-red-600 bg-red-50 dark:bg-red-200 border border-red-200 rounded-md p-3 text-sm">
               {error}
             </div>
           )}
