@@ -39,11 +39,15 @@ const Feature = () => {
         darkMode ? "bg-gray-900" : "bg-gray-100"
       }`}
     >
-      <div className="container mx-auto text-center px-4">
-        <h2 className="text-3xl font-bold text-green-500 dark:text-green-400">
-          Features
+      <div className="container mx-auto px-4 text-center">
+        <h2
+          className={`text-3xl font-bold ${
+            darkMode ? "text-white" : "text-gray-800"
+          }`}
+        >
+          <span className="text-green-600">Key </span>Features
         </h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-300">
+        <p className={`mt-2 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
           Everything you need to create the perfect resume
         </p>
 
@@ -51,13 +55,18 @@ const Feature = () => {
           {features.map(({ title, description, icon, comingSoon }, index) => (
             <div
               key={index}
-              className={`relative p-6 rounded-xl shadow-md transition-all duration-300 flex flex-col items-center ${
-                darkMode ? "bg-gray-800 text-white" : "bg-white text-black"
-              } ${comingSoon ? "opacity-60" : ""}`}
+              className={`relative p-6 rounded-xl shadow-md flex flex-col items-center transition-all duration-300
+                ${darkMode ? "bg-gray-800 text-white" : "bg-white text-black"} 
+                ${comingSoon ? "opacity-70" : ""}
+              `}
             >
               <span className="text-4xl">{icon}</span>
-              <h3 className="text-lg font-semibold mt-4">{title}</h3>
-              <p className="mt-2 text-sm text-center text-gray-600 dark:text-gray-300">
+              <h3 className="mt-4 text-lg font-semibold">{title}</h3>
+              <p
+                className={`mt-2 text-sm text-center ${
+                  darkMode ? "text-gray-300" : "text-gray-600"
+                }`}
+              >
                 {description}
               </p>
 
