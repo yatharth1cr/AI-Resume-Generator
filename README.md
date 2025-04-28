@@ -1,44 +1,139 @@
 # AI-Resume-Generator
 
+### 🚀 Build your dream career with a resume crafted by AI today!
+
 <a href="https://ai-resume-generator-1j18.vercel.app/"><strong>➥ Live Demo</strong></a>
 
+---
+
 ## Overview
-AI-Resume-Generator is a powerful tool designed to help users create professional and tailored resumes effortlessly. By leveraging artificial intelligence, this application ensures that your resume stands out and aligns with industry standards.
+
+**AI Resume Generator** is a powerful tool designed to help users create professional, tailored resumes effortlessly.  
+By leveraging Artificial Intelligence (AI), it ensures your resume stands out and aligns with industry standards — making resume building faster, smarter, and way more effective.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [How It Works](#how-it-works)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Dark Mode](#dark-mode)
+- [Contributing](#contributing)
+- [License](#license)
+- [Screenshots](#screenshots)
+
+---
 
 ## Features
 
-- **AI-Powered Resume Creation**: Generate resumes quickly with AI assistance.
-- **Customizable Templates**: Choose from a variety of professional templates.
-- **Skill-Based Suggestions**: Get recommendations for skills and keywords based on your industry.
-- **Real-Time Editing**: Make changes and see updates instantly.
-- **Export Options**: Download your resume in multiple formats (PDF, DOCX, etc.).
-- **User-Friendly Interface**: Simple and intuitive design for seamless navigation.
+✨ **AI-Powered Resume Generation**:  
+Uses natural language processing and machine learning to generate structured and impactful resumes.
 
-## Tech Stack
+🖥️ **Responsive Design**:  
+Fully optimized for mobile, tablet, and desktop devices.
 
-- **Frontend**: React.js for a dynamic and responsive user interface.
-- **Backend**: Node.js and Express.js for robust server-side functionality.
-- **Database**: MongoDB for efficient data storage and retrieval.
-- **AI Integration**: cohereAI API for generating content and suggestions.
-- **Styling**: Tailwind CSS for modern and clean design.
-- **Version Control**: Git and GitHub for collaborative development.
-- **Deployment**: Hosted on Vercel for easy accessibility.
+🌑 **Dark Mode Support**:  
+Switch easily between Light and Dark themes for a modern experience.
 
-## How to Use
+⚡ **Easy to Use**:  
+Simply input your details — job title, experience, skills — and let AI build your professional resume.
 
-1. Clone the repository to your local machine.
-2. Install dependencies using `npm install`.
-3. Start the development server with `npm start`.
-4. Access the application in your browser and begin creating your resume.
+🎨 **Customizable Templates**:  
+Choose from multiple templates to match your personal style and career goals.
 
-## Contribution
+---
 
-Contributions are welcome! Feel free to fork the repository, make changes, and submit a pull request.
+## How It Works
+
+1. **Input Your Information**:  
+   Fill in your job title, work experience, and skills.
+
+2. **Generate Resume**:  
+   Our AI engine creates a polished, well-structured resume.
+
+3. **Customize (Optional)**:  
+   Pick your favorite template or tweak the layout.
+
+4. **Download**:  
+   Export your resume in PDF or Word format.
+
+---
+
+## Installation
+
+To run the project locally:
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/ai-resume-generator.git
+
+# Navigate into the project directory
+cd ai-resume-generator
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+```
+
+---
+
+## Usage
+
+1. Open your browser and navigate to `http://localhost:3000`.
+2. Enter your job title, experience, and skills.
+3. Click **"Generate Resume"**.
+4. Customize your resume as needed.
+5. Download your finished resume.
+
+---
+
+## Dark Mode
+
+The application automatically supports Dark Mode.
+
+If you want to modify Dark Mode behavior manually:
+
+- Open `src/components/App.js` or corresponding theme-related files.
+- Adjust the logic for dark mode toggling as needed.
+- Save and restart the app.
+
+---
+
+## Contributing
+
+Contributions are welcome!  
+To contribute:
+
+```bash
+# Fork the repository
+git fork https://github.com/your-username/ai-resume-generator.git
+
+# Make your changes
+
+# Commit your changes
+git commit -m "Describe your changes"
+
+# Open a Pull Request to the main branch
+```
+
+---
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
 
-## Contact
+---
 
-For any queries or feedback, please reach out to [yatharthgiri187@gmail.com](mailto:yatharthgiri187@gmail.com).
+## Screenshots
+
+|                      Light Mode                      |                     Dark Mode                      |
+| :--------------------------------------------------: | :------------------------------------------------: |
+| ![Light Mode](/frontend/public/assets/LightHome.png) | ![Dark Mode](/frontend/public/assets/DarkHome.png) |
+
+> _Screenshots showcasing the clean and modern UI in both light and dark themes._
+
+---
