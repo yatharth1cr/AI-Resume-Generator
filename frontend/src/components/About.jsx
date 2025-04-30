@@ -25,7 +25,7 @@ const About = () => {
 
           <p className="text-lg leading-relaxed mb-6">
             Say goodbye to boring templates and hours spent formatting!
-            <span className="text-green-600 dark:text-green-400 font-semibold">
+            <span className="text-green-700 font-bold">
               {" "}
               AI Resume Generator
             </span>{" "}
@@ -53,7 +53,7 @@ const About = () => {
           <img
             src="/assets/AboutUs.svg"
             alt="AI Resume Illustration"
-            className={`w-full max-w-md mx-auto ${darkMode ? "invert" : ""}`}
+            className={`w-full max-w-md mx-auto `}
           />
         </div>
       </div>
