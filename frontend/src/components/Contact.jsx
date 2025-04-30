@@ -37,9 +37,17 @@ const Contact = () => {
           <div className="grid grid-cols-1 md:grid-rows-3 gap-6">
             {[
               {
-                title: "Phone",
-                content: "7065365105",
+                title: "Email",
+                content: (
+                  <a
+                    href="mailto:yatharthgiri187@gmail.com"
+                    className="text-blue-400 mt-2 text-sm text-center"
+                  >
+                    yatharthgiri187@gmail.com
+                  </a>
+                ),
               },
+
               {
                 title: "LinkedIn",
                 content: (
@@ -54,13 +62,15 @@ const Contact = () => {
                 ),
               },
               {
-                title: "Email",
+                title: "X",
                 content: (
                   <a
-                    href="mailto:yatharthgiri187@gmail.com"
+                    href="https://x.com/Yatharthgiri108"
                     className="text-blue-400 mt-2 text-sm text-center"
+                    target="_blank"
+                    rel="noreferrer"
                   >
-                    yatharthgiri187@gmail.com
+                    @Yatharthgiri108
                   </a>
                 ),
               },
