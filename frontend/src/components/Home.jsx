@@ -34,7 +34,7 @@ const Home = () => {
       .map((skill) => skill.trim());
 
     axios
-      .post("http://localhost:5000/api/generate-resume", {
+      .post(`${import.meta.env.REACT_APP_BACKEND_URL}/api/generate-resume`, {
         jobTitle: values.jobTitle,
         experience: values.experience,
         skills: formattedSkills,
