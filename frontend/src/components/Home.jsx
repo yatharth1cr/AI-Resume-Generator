@@ -5,12 +5,13 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+const API_URL = "http://localhost:5000/api/generate-resume"; // Change to process.env.REACT_APP_API_URL in production
+
 const Home = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const darkMode = useSelector((state) => state.darkMode.enabled);
 
-  // Validation Schema
   const validationSchema = Yup.object({
     jobTitle: Yup.string().required("Job title is required"),
     experience: Yup.number()
@@ -34,7 +35,7 @@ const Home = () => {
       .map((skill) => skill.trim());
 
     axios
-      .post(`${import.meta.env.REACT_APP_BACKEND_URL}/api/generate-resume`, {
+      .post(API_URL, {
         jobTitle: values.jobTitle,
         experience: values.experience,
         skills: formattedSkills,
@@ -109,8 +110,8 @@ const Home = () => {
                     type="text"
                     name="jobTitle"
                     id="jobTitle"
-                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none bg-white ${
-                      darkMode ? "bg-gray-700" : ""
+                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none ${
+                      darkMode ? "bg-gray-700 text-white" : "bg-white"
                     }`}
                     placeholder="e.g. Frontend Developer"
                   />
@@ -133,8 +134,8 @@ const Home = () => {
                     type="number"
                     name="experience"
                     id="experience"
-                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none bg-white ${
-                      darkMode ? "bg-gray-700" : ""
+                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none ${
+                      darkMode ? "bg-gray-700 text-white" : "bg-white"
                     }`}
                     placeholder="e.g. 2"
                   />
@@ -160,8 +161,8 @@ const Home = () => {
                     type="text"
                     name="skills"
                     id="skills"
-                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none bg-white ${
-                      darkMode ? "bg-gray-700" : ""
+                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none ${
+                      darkMode ? "bg-gray-700 text-white" : "bg-white"
                     }`}
                     placeholder="e.g. React, JavaScript, Tailwind"
                   />
@@ -184,8 +185,8 @@ const Home = () => {
                     type="text"
                     name="education"
                     id="education"
-                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none bg-white ${
-                      darkMode ? "bg-gray-700" : "bg-black-50"
+                    className={`border border-gray-300 dark:border-gray-600 p-2 w-full rounded-md focus:ring-2 focus:ring-green-400 outline-none ${
+                      darkMode ? "bg-gray-700 text-white" : "bg-white"
                     }`}
                     placeholder="e.g. B.Tech in Computer Science"
                   />
@@ -208,7 +209,7 @@ const Home = () => {
             )}
           </Formik>
 
-          {/* Error */}
+          {/* Error Message */}
           {error && (
             <div className="mt-4 text-red-600 bg-red-50 dark:bg-red-200 border border-red-200 rounded-md p-3 text-sm">
               {error}
