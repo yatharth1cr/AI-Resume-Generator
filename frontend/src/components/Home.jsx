@@ -5,8 +5,8 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const API_URL = "http://localhost:5000/api/generate-resume"; // Change to process.env.REACT_APP_API_URL in production
-
+const API_URL =
+  "https://ai-resume-generator-z8il.onrender.com/api/generate-resume";
 const Home = () => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
